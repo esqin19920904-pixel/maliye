@@ -2,6 +2,7 @@
 <html lang="az"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Maliyyə</title>
+<link rel="manifest" href="manifest.webmanifest"><meta name="theme-color" content="#6c5ce7"><link rel="apple-touch-icon" href="icon-192.png">
 <style>
 :root{--bg:#f3f5fb;--c:#fff;--t:#1a2133;--m:#718096;--p:#6c5ce7;--g:#0f9d6e;--r:#e5484d;--b:#e6eaf3}
 [data-th=dark]{--bg:#0e1220;--c:#171c2e;--t:#eef1fa;--m:#8e9ab5;--b:#262d45}
@@ -194,5 +195,5 @@ V.ayar=()=>`<h2>Ayarlar</h2><div class=card><b>Görünüş</b><div class=row><bu
  <div class=card><b>🗑️ Zibil qutusu</b>${S.tx.filter(t=>t.deleted).map(t=>`<div class=li><span>${t.date} · ${M(t.amount)} · ${E(t.note||TY[t.type])}</span><button class=s onclick="S.tx.find(z=>z.id=='${t.id}').deleted=0;save();render()">Bərpa</button></div>`).join('')||'<div class=m>Boşdur</div>'}</div>`;
 async function imp(f){if(!f)return;try{const d=JSON.parse(await f.text());if(!d.tx||!d.acc)throw 0;if(confirm('Mövcud məlumatlar bu nüsxə ilə əvəz olunsun?')){S=d;S.set??={hide:[],theme:''};S.set.hide??=[];save();render()}}catch(e){toast('Fayl düzgün deyil')}}
 function th(){document.documentElement.dataset.th=S.set.theme||(matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light')}
-(async()=>{const d=await load();if(d){S=d;S.goals??=[];S.set??={hide:[],theme:''};S.set.hide??=[]}else{seed();save()}th();render();navigator.storage?.persist?.()})();
+(async()=>{const d=await load();if(d){S=d;S.goals??=[];S.set??={hide:[],theme:''};S.set.hide??=[]}else{seed();save()}th();render();navigator.storage?.persist?.();if('serviceWorker'in navigator)navigator.serviceWorker.register('sw.js').catch(()=>{})})();
 </script></body></html>
